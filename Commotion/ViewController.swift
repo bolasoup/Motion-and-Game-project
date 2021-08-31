@@ -10,6 +10,7 @@ import UIKit
 import CoreMotion
 
 class ViewController: UIViewController {
+    //bola
     
     //MARK: =====class variables=====
     let activityManager = CMMotionActivityManager()

@@ -53,13 +53,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addSidesAndTop()
         
         // add some stationary blocks
-        self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.1, y: size.height * 0.25))
-        self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.9, y: size.height * 0.25))
+        //self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.1, y: size.height * 0.25))
+        //self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.9, y: size.height * 0.25))
         
         // add a spinning block
-        self.addBlockAtPoint(CGPoint(x: size.width * 0.5, y: size.height * 0.35))
+        //self.addBlockAtPoint(CGPoint(x: size.width * 0.5, y: size.height * 0.35))
         
-        self.addSpriteBottle()
+        self.addGoal()
+        self.addBall()
         
         self.addScore()
         
@@ -78,16 +79,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func addSpriteBottle(){
-        let spriteA = SKSpriteNode(imageNamed: "sprite") // this is literally a sprite bottle... 😎
+    func addGoal(){
+        let spriteA = SKSpriteNode(imageNamed: "goal") // just a goal that I made by hand, I am not an artist - Christian Melendez
         
-        spriteA.size = CGSize(width:size.width*0.1,height:size.height * 0.1)
+        spriteA.size = CGSize(width:size.width*0.3,height:size.height * 0.2)
         
-        let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
-        spriteA.position = CGPoint(x: size.width * randNumber, y: size.height * 0.75)
+        //let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
+        spriteA.position = CGPoint(x: size.width * 0.5, y: size.height * 0.1)
+        
+        spriteA.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width:size.width*0.15,height:size.height * 0.05))
+        spriteA.physicsBody?.restitution = random(min: CGFloat(0.0), max: CGFloat(0.0))
+        spriteA.physicsBody?.isDynamic = false
+        spriteA.physicsBody?.contactTestBitMask = 0x00000001
+        spriteA.physicsBody?.collisionBitMask = 0x00000001
+        spriteA.physicsBody?.categoryBitMask = 0x00000001
+        
+        self.addChild(spriteA)
+    }
+    func addBall(){
+        let spriteA = SKSpriteNode(imageNamed: "soccer") // just a goal that I made by hand, I am not an artist - Christian Melendez
+        
+        spriteA.size = CGSize(width:size.width*0.1,height:size.height * 0.075)
+        
+        //let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
+        spriteA.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         spriteA.physicsBody = SKPhysicsBody(rectangleOf:spriteA.size)
-        spriteA.physicsBody?.restitution = random(min: CGFloat(1.0), max: CGFloat(1.5))
+        spriteA.physicsBody?.restitution = random(min: CGFloat(0.0), max: CGFloat(0.0))
         spriteA.physicsBody?.isDynamic = true
         spriteA.physicsBody?.contactTestBitMask = 0x00000001
         spriteA.physicsBody?.collisionBitMask = 0x00000001
@@ -155,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: =====Delegate Functions=====
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addSpriteBottle()
+        self.addBall()
     }
     
     func didBegin(_ contact: SKPhysicsContact) {

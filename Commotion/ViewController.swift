@@ -8,11 +8,14 @@
 
 import UIKit
 import CoreMotion
+import Foundation
 
 class ViewController: UIViewController {
     
     //MARK: =====class variables=====
     let activityManager = CMMotionActivityManager()
+    let now = Date()
+    //let from = now.addingTimeInterval(-60*60*24)
     let pedometer = CMPedometer()
     let motion = CMMotionManager()
     var totalSteps: Float = 0.0 {
@@ -26,6 +29,7 @@ class ViewController: UIViewController {
     
     //MARK: =====UI Elements=====
     @IBOutlet weak var stepsSlider: UISlider!
+    @IBOutlet weak var currentStepsLabel: UILabel!
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var isWalking: UILabel!
     
@@ -38,6 +42,8 @@ class ViewController: UIViewController {
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
         self.startMotionUpdates()
+        self.displayStepsFromToday()
+        self.displayStepsFromYesterday()
     }
     
     
@@ -93,7 +99,38 @@ class ViewController: UIViewController {
             self.totalSteps = steps.floatValue
         }
     }
-
+    
+    
+    func displayStepsFromYesterday() -> Void {
+        let now = Date()  // Define 'now'
+        let from = now.addingTimeInterval(-60*60*24)
+        
+        self.pedometer.queryPedometerData(from: from, to: now) { (pedData: CMPedometerData?, error: Error?) in
+            
+            let aggregated_string = "Steps: \(pedData?.numberOfSteps ?? 0)"
+            
+            DispatchQueue.main.async {
+                self.stepsLabel.text = aggregated_string
+            }
+        }
+    }
+    
+    func displayStepsFromToday() -> Void {
+        let now = Date()
+        let calendar = Calendar.current
+        
+        let from = calendar.startOfDay(for: now)
+        
+        self.pedometer.queryPedometerData(from: from, to: now) {
+            (pedData: CMPedometerData?, error: Error?) in
+            
+            let aggregated_string = "Steps: \(pedData?.numberOfSteps ?? 0)"
+            
+            DispatchQueue.main.async {
+                self.currentStepsLabel.text = aggregated_string
+            }
+        }
+    }
 
 }
 

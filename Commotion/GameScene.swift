@@ -16,6 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
+    
+    //Professor's Motion updater
     func startMotionUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
         
@@ -30,6 +32,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: CGFloat(9.8*gravity.y))
         }
     }
+    
+    //Our Gyro updater
+    /*func startGyroUpdates(){
+        if self.motion.isGyroAvailable{
+            self.motion.gyroUpdateInterval = 0.1
+            self.motion.startGyroUpdates(to: OperationQueue.main, withHandler: self.handleGyro)
+        }
+    }
+    
+    func handleGyro(_ gyroData: CMGyroData?, error:Error?){
+    }*/
     
     // MARK: View Hierarchy Functions
     let spinBlock = SKSpriteNode()

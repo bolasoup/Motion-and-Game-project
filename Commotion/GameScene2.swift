@@ -14,23 +14,7 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
-    
-    //Professor's Motion updater
-    /*func startMotionUpdates(){
-        // some internal inconsistency here: we need to ask the device manager for device
-        
-        if self.motion.isDeviceMotionAvailable{
-            self.motion.deviceMotionUpdateInterval = 0.1
-            self.motion.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: self.handleMotion )
-        }
-    }
-    
-    func handleMotion(_ motionData:CMDeviceMotion?, error:Error?){
-        if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: CGFloat(9.8*gravity.y))
-        }
-    }*/
-    
+
     //Our Gyro updater
     func startGyroUpdates(){
         if self.motion.isGyroAvailable{
@@ -63,8 +47,6 @@ class GameScene2: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         backgroundColor = SKColor.white
         
-        // start motion for gravity
-        //self.startMotionUpdates()
         
         // start gyro updates
         self.startGyroUpdates()

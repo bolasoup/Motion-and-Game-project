@@ -1,35 +1,44 @@
 //
-//  GameScene.swift
+//  GameScene3.swift
 //  Commotion
 //
-//  Created by Eric Larson on 9/6/16.
-//  Copyright © 2016 Eric Larson. All rights reserved.
+//  Created by Christian Melendez on 10/22/24.
+//  Copyright © 2024 Eric Larson. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
 import CoreMotion
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene3: SKScene, SKPhysicsContactDelegate{
+
     
     //@IBOutlet weak var scoreLabel: UILabel!
+    
+    var accelerationArray:[Float] = Array.init(repeating: 0.0, count: 10)
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
     
     //Professor's Motion updater
-    func startMotionUpdates(){
+    func startAccelerometerUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
         
-        if self.motion.isDeviceMotionAvailable{
-            self.motion.deviceMotionUpdateInterval = 0.1
-            self.motion.startDeviceMotionUpdates(to: OperationQueue.main, withHandler: self.handleMotion )
+        if self.motion.isAccelerometerAvailable{
+            self.motion.accelerometerUpdateInterval = 0.1
+            self.motion.startAccelerometerUpdates(to: OperationQueue.main, withHandler: self.handleAccelerometer)
         }
     }
     
-    func handleMotion(_ motionData:CMDeviceMotion?, error:Error?){
-        if let gravity = motionData?.gravity {
-            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*gravity.x), dy: CGFloat(9.8*gravity.y))
+    func handleAccelerometer(_ accelerationData:CMAccelerometerData?, error:Error?){
+        if let data = accelerationData {
+            self.physicsWorld.gravity = CGVector(dx: CGFloat(9.8*data.acceleration.x), dy: CGFloat(9.8*data.acceleration.y))
+            if let index = accelerationArray.firstIndex(where: {$0 == 0.0}) {
+                accelerationArray[index] = Float(data.acceleration.y)
+            } else {
+                dump(accelerationArray)
+                self.motion.stopAccelerometerUpdates()
+            }
         }
     }
     
@@ -61,7 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor.white
         
         // start motion for gravity
-        self.startMotionUpdates()
+        self.startAccelerometerUpdates()
         
         // make sides to the screen
         self.addSidesAndTop()

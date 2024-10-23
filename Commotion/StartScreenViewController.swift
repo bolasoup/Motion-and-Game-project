@@ -6,14 +6,11 @@
 //  Copyright © 2024 Eric Larson. All rights reserved.
 //
 
-import SwiftUI
+import UIKit
+import CoreMotion
+import Foundation
 
-struct StartScreenViewController: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    StartScreenViewController()
+class StartScreenViewController: UIViewController {
+    
+    
 }

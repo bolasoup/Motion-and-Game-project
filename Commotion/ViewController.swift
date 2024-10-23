@@ -10,14 +10,13 @@ import UIKit
 import CoreMotion
 import Foundation
 
-class ViewController: UIViewController {
-    //bola
+class ViewController: UIViewController, ThresholdViewControllerDelegate {
     
     //MARK: =====class variables=====
     let activityManager = CMMotionActivityManager()
     let now = Date()
-    //let from = now.addingTimeInterval(-60*60*24)
     let pedometer = CMPedometer()
+    var threshold: Int = 10000
     let motion = CMMotionManager()
     var totalSteps: Float = 0.0 {
         willSet(newtotalSteps){
@@ -32,8 +31,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepsSlider: UISlider!
     @IBOutlet weak var currentStepsLabel: UILabel!
     @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var ThresholdButton: UIButton!
     @IBOutlet weak var isWalking: UILabel!
-    
+    @IBOutlet weak var goalLabel: UILabel!
     
     //MARK: =====View Lifecycle=====
     override func viewDidLoad() {
@@ -45,8 +45,20 @@ class ViewController: UIViewController {
         self.startMotionUpdates()
         self.displayStepsFromToday()
         self.displayStepsFromYesterday()
+        self.displayGoal()
+        print(self.threshold)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(self.threshold)
+        self.displayGoal()
+    }
+    
+    func didEnterValue(_ value: Int) {
+        self.threshold = value
+        self.displayGoal()
+    }
     
     // MARK: =====Raw Motion Functions=====
     func startMotionUpdates(){
@@ -132,6 +144,22 @@ class ViewController: UIViewController {
             }
         }
     }
-
+    
+    func displayGoal() -> Void {
+        DispatchQueue.main.async {
+            self.goalLabel.text = "Goal: \(self.threshold)"
+        }
+    }
+    
+    @IBAction func thresholdPressed(_ sender: Any) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ThresholdViewController" {
+            if let thresholdVC = segue.destination as? ThresholdViewController {
+                thresholdVC.delegate = self
+            }
+        }
+    }
 }
 

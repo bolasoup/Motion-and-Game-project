@@ -34,6 +34,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var isWalking: UILabel!
     
+    //stuff needed for daily step goal
+    @IBOutlet weak var goalTextField: UITextField! // Input field for the user to set goal
+    @IBOutlet weak var remainingStepsLabel: UILabel! // Displays remaining steps
+    @IBOutlet weak var setGoalButton: UIButton!      // Button to save the goal
+    
+    
+    let goalKey = "dailyGoal"
     
     //MARK: =====View Lifecycle=====
     override func viewDidLoad() {
@@ -45,6 +52,9 @@ class ViewController: UIViewController {
         self.startMotionUpdates()
         self.displayStepsFromToday()
         self.displayStepsFromYesterday()
+        
+        goalTextField.text = "\(loadDailyGoal())"
+        updateRemainingSteps()
     }
     
     
@@ -98,6 +108,7 @@ class ViewController: UIViewController {
     func handlePedometer(_ pedData:CMPedometerData?, error:Error?)->(){
         if let steps = pedData?.numberOfSteps {
             self.totalSteps = steps.floatValue
+            updateRemainingSteps()
         }
     }
     
@@ -131,6 +142,27 @@ class ViewController: UIViewController {
                 self.currentStepsLabel.text = aggregated_string
             }
         }
+    }
+    
+
+    // Function to save step goal
+    @IBAction func setGoalButtonTapped(_ sender: UIButton) {
+        if let goalText = goalTextField.text, let goal = Float(goalText) {
+            UserDefaults.standard.set(goal, forKey: goalKey)
+            updateRemainingSteps()  // Update it
+        }
+    }
+
+    // Function to load the daily goal when the app starts
+    func loadDailyGoal() -> Float {
+        return UserDefaults.standard.float(forKey: goalKey)  // Load the goal (0.0 if not set)
+    }
+    
+    //func to update steps remaining
+    func updateRemainingSteps() {
+        let dailyGoal = loadDailyGoal()  // Load the saved goal
+        let remainingSteps = dailyGoal - totalSteps  // Calculate remaining steps
+        remainingStepsLabel.text = "Remaining Steps: \(max(remainingSteps, 0))"
     }
 
 }

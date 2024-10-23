@@ -11,6 +11,7 @@ import CoreMotion
 import Foundation
 
 class StartScreenViewController: UIViewController {
-    
+    @IBOutlet weak var goStepCounter: UIButton!
+    @IBOutlet weak var goGame: UIButton!
     
 }

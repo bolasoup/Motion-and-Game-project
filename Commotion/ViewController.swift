@@ -35,10 +35,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var isWalking: UILabel!
     
     //stuff needed for daily step goal
-    @IBOutlet weak var goalTextField: UITextField!  // Input field for the user to set goal
+    @IBOutlet weak var goalTextField: UITextField! // Input field for the user to set goal
     @IBOutlet weak var remainingStepsLabel: UILabel! // Displays remaining steps
     @IBOutlet weak var setGoalButton: UIButton!      // Button to save the goal
     
+    
+    let goalKey = "dailyGoal"
     
     //MARK: =====View Lifecycle=====
     override func viewDidLoad() {
@@ -142,7 +144,6 @@ class ViewController: UIViewController {
         }
     }
     
-    let goalKey = "dailyGoal"
 
     // Function to save step goal
     @IBAction func setGoalButtonTapped(_ sender: UIButton) {

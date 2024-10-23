@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		493FE6322CC990DF008586FA /* ThresholdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493FE6312CC990DF008586FA /* ThresholdViewController.swift */; };
+		490FCF142CC94A060071F7BD /* ThresholdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490FCF132CC94A060071F7BD /* ThresholdViewController.swift */; };
 		B62ED3A31D7F299D00B503DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED3A21D7F299D00B503DF /* AppDelegate.swift */; };
 		B62ED3A51D7F299D00B503DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62ED3A41D7F299D00B503DF /* ViewController.swift */; };
 		B62ED3A81D7F299D00B503DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B62ED3A61D7F299D00B503DF /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		493FE6312CC990DF008586FA /* ThresholdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdViewController.swift; sourceTree = "<group>"; };
+		490FCF132CC94A060071F7BD /* ThresholdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThresholdViewController.swift; sourceTree = "<group>"; };
 		B62ED39F1D7F299D00B503DF /* Commotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Commotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B62ED3A21D7F299D00B503DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B62ED3A41D7F299D00B503DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 				B62ED3A21D7F299D00B503DF /* AppDelegate.swift */,
 				B62ED3A41D7F299D00B503DF /* ViewController.swift */,
 				B68B9D491D7F6EA8002037A3 /* GameViewController.swift */,
-				493FE6312CC990DF008586FA /* ThresholdViewController.swift */,
+				490FCF132CC94A060071F7BD /* ThresholdViewController.swift */,
 				B68B9D4B1D7F6EFA002037A3 /* GameScene.swift */,
 				B62ED3A61D7F299D00B503DF /* Main.storyboard */,
 				B62ED3A91D7F299D00B503DF /* Assets.xcassets */,
@@ -149,7 +149,7 @@
 				B62ED3A51D7F299D00B503DF /* ViewController.swift in Sources */,
 				B68B9D4A1D7F6EA8002037A3 /* GameViewController.swift in Sources */,
 				B68B9D4C1D7F6EFA002037A3 /* GameScene.swift in Sources */,
-				493FE6322CC990DF008586FA /* ThresholdViewController.swift in Sources */,
+				490FCF142CC94A060071F7BD /* ThresholdViewController.swift in Sources */,
 				B62ED3A31D7F299D00B503DF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

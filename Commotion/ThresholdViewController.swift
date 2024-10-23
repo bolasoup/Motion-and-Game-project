@@ -8,15 +8,34 @@
 
 import UIKit
 
+protocol ThresholdViewControllerDelegate: AnyObject {
+    func didEnterValue(_ value: Int)
+}
+
 class ThresholdViewController: UIViewController {
 
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var thresholdField: UITextField!
+    
+    weak var delegate : ThresholdViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Threshold"
         // Do any additional setup after loading the view.
     }
     
 
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        if let text = thresholdField.text {
+            delegate?.didEnterValue(Int(text) ?? 0)
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

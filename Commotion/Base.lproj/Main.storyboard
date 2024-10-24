@@ -153,13 +153,28 @@
                     <view key="view" contentMode="scaleToFill" id="9m8-Lp-cfY" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVE-FR-XcT">
+                                <rect key="frame" x="89" y="64" width="177" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="EVE-FR-XcT" firstAttribute="top" secondItem="Mv4-4J-m7v" secondAttribute="bottom" id="2pi-yL-C9n"/>
+                            <constraint firstItem="EVE-FR-XcT" firstAttribute="centerX" secondItem="9m8-Lp-cfY" secondAttribute="centerX" id="yac-Vg-wRa"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hlX-67-LcN"/>
+                    <connections>
+                        <outlet property="gameLabel" destination="EVE-FR-XcT" id="l1t-6K-BVO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJd-XG-b1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1978" y="1030"/>
+            <point key="canvasLocation" x="1976.8" y="1029.5352323838081"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="89N-zI-ALS">

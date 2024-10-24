@@ -225,9 +225,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: =====Delegate Functions=====
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /*override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.addBall()
-    }
+    }*/
     
     /*func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node == goal || contact.bodyB.node == goal {

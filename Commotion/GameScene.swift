@@ -213,7 +213,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         bottom.size = CGSize(width:size.width*0.5,height:size.height*0.05)
         bottom.position = CGPoint(x:size.width*0.5, y:size.height*0.3)
-        for obj in [left, right, top,bottom] {
+        
+        
+        for obj in [left, right] {
                 obj.color = UIColor.red
                 obj.physicsBody = SKPhysicsBody(rectangleOf: obj.size)
                 obj.physicsBody?.isDynamic = false // Make them static
@@ -222,12 +224,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 obj.physicsBody?.collisionBitMask = 0 // Do not collide with anything
                 self.addChild(obj)
             }
+        
+        for obj in [top, bottom] {
+                obj.color = UIColor.green
+                obj.physicsBody = SKPhysicsBody(rectangleOf: obj.size)
+                obj.physicsBody?.isDynamic = false // Make them static
+                obj.physicsBody?.allowsRotation = false
+                self.addChild(obj)
+            }
     }
     
     // MARK: =====Delegate Functions=====
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    /*override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.addBall()
-    }
+    }*/
     
     /*func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node == goal || contact.bodyB.node == goal {

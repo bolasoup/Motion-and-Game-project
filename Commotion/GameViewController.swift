@@ -12,6 +12,7 @@ import SpriteKit
 class GameViewController: UIViewController {
 
     
+    @IBOutlet weak var gameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
+        gameLabel.text = "Don't touch the edges!"
     }
 
     

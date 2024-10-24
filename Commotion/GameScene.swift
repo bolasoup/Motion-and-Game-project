@@ -12,6 +12,21 @@ import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    //Timer variables
+    var timer: Timer?
+        var elapsedTime: TimeInterval = 0 {
+            willSet {
+                DispatchQueue.main.async {
+                    self.timerLabel.text = String(format: "Time: %.1f", newValue)
+                }
+            }
+        }
+        
+        let timerLabel = SKLabelNode(fontNamed: "Chalkduster")
+        
+        // Other properties and methods...
+    
+    
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
 
@@ -63,10 +78,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //self.addGoal()
         self.addBall()
+        self.setupTimerLabel()
+            
+        // Start the timer
+        startTimer()
         
         //self.addScore()
         
         //self.score = 0
+    }
+    
+    // setup the timer
+    func setupTimerLabel() {
+        timerLabel.fontSize = 20
+        timerLabel.fontColor = SKColor.blue
+        timerLabel.position = CGPoint(x: frame.midX, y: frame.minY + 20)
+        
+        addChild(timerLabel)
+    }
+    
+    func startTimer() {
+        elapsedTime = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+            self?.elapsedTime += 0.1
+        }
     }
     
     // MARK: Create Sprites Functions
@@ -178,14 +213,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         bottom.size = CGSize(width:size.width*0.5,height:size.height*0.05)
         bottom.position = CGPoint(x:size.width*0.5, y:size.height*0.3)
-        for obj in [left,right,top,bottom]{
-            obj.color = UIColor.red
-            obj.physicsBody = SKPhysicsBody(rectangleOf:obj.size)
-            obj.physicsBody?.isDynamic = true
-            obj.physicsBody?.pinned = true
-            obj.physicsBody?.allowsRotation = false
-            self.addChild(obj)
-        }
+        for obj in [left, right, top,bottom] {
+                obj.color = UIColor.red
+                obj.physicsBody = SKPhysicsBody(rectangleOf: obj.size)
+                obj.physicsBody?.isDynamic = false // Make them static
+                obj.physicsBody?.categoryBitMask = 0x00000002 // Unique category for sides
+                obj.physicsBody?.contactTestBitMask = 0x00000001 // Detect collisions with the ball
+                obj.physicsBody?.collisionBitMask = 0 // Do not collide with anything
+                self.addChild(obj)
+            }
     }
     
     // MARK: =====Delegate Functions=====
@@ -207,6 +243,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func random(min: CGFloat, max: CGFloat) -> CGFloat {
         return random() * (max - min) + min
+    }
+    
+    
+    //this func is to end timer if ball touches the sides
+    func didBegin(_ contact: SKPhysicsContact) {
+            if (contact.bodyA.categoryBitMask == 0x00000001 && contact.bodyB.categoryBitMask == 0x00000002) ||
+               (contact.bodyA.categoryBitMask == 0x00000002 && contact.bodyB.categoryBitMask == 0x00000001) {
+                endGame() // End the game if the ball touches the sides
+            }
+        }
+    
+    func endGame() {
+        // Stop the timer
+        timer?.invalidate()
+        timer = nil
+        
+        // Show final score or alert with elapsed time
+        let alert = UIAlertController(title: "Game Over", message: "Time: \(String(format: "%.1f", elapsedTime)) seconds", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+        
     }
 }
 

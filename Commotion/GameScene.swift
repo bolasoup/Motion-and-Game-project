@@ -11,6 +11,7 @@ import SpriteKit
 import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    var startScore = 0
     
     //Timer variables
     var timer: Timer?
@@ -47,17 +48,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: View Hierarchy Functions
-    //let spinBlock = SKSpriteNode()
-    //let goal = SKSpriteNode(imageNamed: "goal")
     let ball = SKSpriteNode(imageNamed: "soccer")
-    /*let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-    var score:Int = 0 {
-        willSet(newValue){
-            DispatchQueue.main.async{
-                self.scoreLabel.text = "Score: \(newValue)"
-            }
-        }
-    }*/
+
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -68,25 +60,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.startGyroUpdates()
         
         // make sides to the screen
-        self.addSidesAndTop()
+        self.addSidesAndTopAndBottom()
         
-        // add some stationary blocks
-        //self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.1, y: size.height * 0.25))
-        //self.addStaticBlockAtPoint(CGPoint(x: size.width * 0.9, y: size.height * 0.25))
-        
-        // add a spinning block
-        //self.addBlockAtPoint(CGPoint(x: size.width * 0.5, y: size.height * 0.35))
-        
-        //self.addGoal()
         self.addBall()
         self.setupTimerLabel()
             
         // Start the timer
         startTimer()
         
-        //self.addScore()
-        
-        //self.score = 0
+
     }
     
     // setup the timer
@@ -106,40 +88,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: Create Sprites Functions
-    /*func addScore(){
-        
-        scoreLabel.text = "Score: 0"
-        scoreLabel.fontSize = 20
-        scoreLabel.fontColor = SKColor.blue
-        scoreLabel.position = CGPoint(x: frame.midX, y: frame.minY)
-        
-        addChild(scoreLabel)
-    }*/
-    
-    
-    /*func addGoal(){
-        //let spriteA = SKSpriteNode(imageNamed: "goal") // just a goal that I made by hand, I am not an artist - Christian Melendez
-        
-        goal.size = CGSize(width:size.width*0.3,height:size.height * 0.2)
-        
-        //let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
-        goal.position = CGPoint(x: size.width * 0.5, y: size.height * 0.1)
-        
-        goal.physicsBody = SKPhysicsBody(rectangleOf:CGSize(width:size.width*0.15,height:size.height * 0.05))
-        goal.physicsBody?.restitution = random(min: CGFloat(0.0), max: CGFloat(0.0))
-        goal.physicsBody?.isDynamic = false
-        goal.physicsBody?.contactTestBitMask = 0x00000001
-        goal.physicsBody?.collisionBitMask = 0x00000001
-        goal.physicsBody?.categoryBitMask = 0x00000001
-        
-        self.addChild(goal)
-    }*/
+
     func addBall(){
-        //let spriteA = SKSpriteNode(imageNamed: "soccer") // just a goal that I made by hand, I am not an artist - Christian Melendez
-        
+
         ball.size = CGSize(width:size.width*0.1,height:size.height * 0.075)
         
-        //let randNumber = random(min: CGFloat(0.1), max: CGFloat(0.9))
+
         ball.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         ball.physicsBody = SKPhysicsBody(rectangleOf:ball.size)
@@ -152,22 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(ball)
     }
     
-    /*func addBlockAtPoint(_ point:CGPoint){
-        
-        spinBlock.color = UIColor.red
-        spinBlock.size = CGSize(width:size.width*0.15,height:size.height * 0.05)
-        spinBlock.position = point
-        
-        spinBlock.physicsBody = SKPhysicsBody(rectangleOf:spinBlock.size)
-        spinBlock.physicsBody?.contactTestBitMask = 0x00000001
-        spinBlock.physicsBody?.collisionBitMask = 0x00000001
-        spinBlock.physicsBody?.categoryBitMask = 0x00000001
-        spinBlock.physicsBody?.isDynamic = true
-        spinBlock.physicsBody?.pinned = true
-        
-        self.addChild(spinBlock)
 
-    }*/
     
     func addStaticBlockAtPoint(_ point:CGPoint){
         let 🔲 = SKSpriteNode()
@@ -185,24 +124,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func addSidesAndTop(){
+    func addSidesAndTopAndBottom(){
         let left = SKSpriteNode()
         let right = SKSpriteNode()
         let top = SKSpriteNode()
         let bottom = SKSpriteNode()
-        /* Original
-        left.size = CGSize(width:size.width*0.1,height:size.height)
-        left.position = CGPoint(x:0, y:size.height*0.5)
-        
-        right.size = CGSize(width:size.width*0.1,height:size.height)
-        right.position = CGPoint(x:size.width, y:size.height*0.5)
-        
-        top.size = CGSize(width:size.width,height:size.height*0.1)
-        top.position = CGPoint(x:size.width*0.5, y:size.height)
-        
-        bottom.size = CGSize(width:size.width,height:size.height*0.1)
-        bottom.position = CGPoint(x:size.width*0.5, y:0)
-        */
+
         left.size = CGSize(width:size.width*0.1,height:size.height*0.4)
         left.position = CGPoint(x:size.width*0.25, y:size.height*0.5)
         
@@ -216,17 +143,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bottom.position = CGPoint(x:size.width*0.5, y:size.height*0.3)
         
         
-        for obj in [left, right] {
-                obj.color = UIColor.red
-                obj.physicsBody = SKPhysicsBody(rectangleOf: obj.size)
-                obj.physicsBody?.isDynamic = false // Make them static
-                obj.physicsBody?.categoryBitMask = 0x00000002 // Unique category for sides
-                obj.physicsBody?.contactTestBitMask = 0x00000001 // Detect collisions with the ball
-                obj.physicsBody?.collisionBitMask = 0 // Do not collide with anything
-                self.addChild(obj)
-            }
+
         
-        for obj in [top, bottom] {
+        for obj in [top, bottom, left, right] {
                 obj.color = UIColor.green
                 obj.physicsBody = SKPhysicsBody(rectangleOf: obj.size)
                 obj.physicsBody?.isDynamic = false // Make them static
@@ -236,14 +155,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // MARK: =====Delegate Functions=====
-    /*override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addBall()
-    }*/
-    
+
+    // For every 1000 steps you get 1 extra life to touch the walls.
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node == ball || contact.bodyB.node == ball {
             //self.totalScore += 1
-            endGame()
+            self.startScore -= 1000
+            if self.startScore < 0 {
+                endGame()
+            }
         }
         //add the negative scoring later
     }
@@ -257,14 +177,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return random() * (max - min) + min
     }
     
-    
-    //this func is to end timer if ball touches the sides
-    /*func didBegin(_ contact: SKPhysicsContact) {
-            if (contact.bodyA.categoryBitMask == 0x00000001 && contact.bodyB.categoryBitMask == 0x00000002) ||
-               (contact.bodyA.categoryBitMask == 0x00000002 && contact.bodyB.categoryBitMask == 0x00000001) {
-                endGame() // End the game if the ball touches the sides
-            }
-        }*/
     
     func endGame() {
         // Stop the timer

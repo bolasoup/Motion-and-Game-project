@@ -12,11 +12,14 @@ import SpriteKit
 class GameViewController: UIViewController {
 
     var totalScore = 10
+    var touches = 0
     @IBOutlet weak var gameLabel: UILabel!
     
     @IBOutlet weak var gameLabel2: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        touches = Int((totalScore / 1000) + 1)
 
         //setup game scene
         let scene = GameScene(size: view.bounds.size)
@@ -26,8 +29,9 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
+        scene.startScore = totalScore
         gameLabel.text = "Don't touch the sides!"
-        gameLabel2.text = String(self.totalScore)
+        gameLabel2.text = "Total number of touches: \(touches)."
     }
 
     

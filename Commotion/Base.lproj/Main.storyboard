@@ -59,7 +59,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Play Game"/>
                                 <connections>
-                                    <segue destination="uAs-2Q-GOu" kind="show" id="awM-e6-G1f"/>
+                                    <segue destination="uAs-2Q-GOu" kind="show" identifier="GameViewController" id="awM-e6-G1f"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYq-39-foA">
@@ -155,7 +155,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVE-FR-XcT">
-                                <rect key="frame" x="89" y="64" width="177" height="55"/>
+                                <rect key="frame" x="40" y="64" width="308" height="112"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXl-cf-1bU">
+                                <rect key="frame" x="51" y="602" width="287" height="45"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -164,12 +170,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EVE-FR-XcT" firstAttribute="top" secondItem="Mv4-4J-m7v" secondAttribute="bottom" id="2pi-yL-C9n"/>
+                            <constraint firstItem="vXl-cf-1bU" firstAttribute="centerX" secondItem="9m8-Lp-cfY" secondAttribute="centerX" id="uDz-EO-vSC"/>
                             <constraint firstItem="EVE-FR-XcT" firstAttribute="centerX" secondItem="9m8-Lp-cfY" secondAttribute="centerX" id="yac-Vg-wRa"/>
+                            <constraint firstItem="9ra-ia-fff" firstAttribute="top" secondItem="vXl-cf-1bU" secondAttribute="bottom" constant="20" id="zFy-Do-SoA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hlX-67-LcN"/>
                     <connections>
                         <outlet property="gameLabel" destination="EVE-FR-XcT" id="l1t-6K-BVO"/>
+                        <outlet property="gameLabel2" destination="vXl-cf-1bU" id="STJ-A4-MrP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJd-XG-b1a" userLabel="First Responder" sceneMemberID="firstResponder"/>

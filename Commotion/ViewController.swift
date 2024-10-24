@@ -23,6 +23,7 @@ class ViewController: UIViewController, ThresholdViewControllerDelegate {
             DispatchQueue.main.async{
                 self.stepsSlider.setValue(newtotalSteps, animated: true)
                 self.stepsLabel.text = "Steps: \(newtotalSteps)"
+                self.totalSteps = newtotalSteps
             }
         }
     }
@@ -199,6 +200,24 @@ class ViewController: UIViewController, ThresholdViewControllerDelegate {
             if let thresholdVC = segue.destination as? ThresholdViewController {
                 thresholdVC.delegate = self
             }
+        }
+        if segue.identifier == "GameViewController" {
+            if let controller = segue.destination as? GameViewController{
+                let now = Date()
+                let calendar = Calendar.current
+                
+                let from = calendar.startOfDay(for: now)
+                
+                self.pedometer.queryPedometerData(from: from, to: now) { (pedData: CMPedometerData?, error: Error?) in
+                    if let steps = pedData?.numberOfSteps {
+                        let todaySteps = steps.intValue
+                        controller.totalScore = todaySteps  // Pass the step count to the completion handler
+                    } else {
+                        controller.totalScore = 0  // In case of error, pass 0 steps
+                    }
+                }                
+            }
+            
         }
     }
     

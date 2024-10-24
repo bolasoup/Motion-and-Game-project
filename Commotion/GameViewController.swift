@@ -11,9 +11,10 @@ import SpriteKit
 
 class GameViewController: UIViewController {
 
-    
+    var totalScore = 10
     @IBOutlet weak var gameLabel: UILabel!
     
+    @IBOutlet weak var gameLabel2: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +26,8 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .resizeFill
         skView.presentScene(scene)
-        gameLabel.text = "Don't touch the edges!"
+        gameLabel.text = "Don't touch the sides!"
+        gameLabel2.text = String(self.totalScore)
     }
 
     
